@@ -1,0 +1,19 @@
+name: BaritoneDetection
+main: me.juicyseals.BaritoneDetection
+author: JuicySeals
+version: 1
+description: A plugin that detects baritone users using multiple methods.
+website: www.juicyseals.me
+commands:
+  bd:
+    description: Main command
+    usage: /bd <subcommand>
+permissions:
+  BaritoneDetection.FakeBlock:
+    description: Gives permission to use /bd fake
+  BaritoneDetection.Help:
+    description: Gives permission to use /bd help
+  BaritoneDetection.Admin:
+    children:
+      BaritoneDetection.Help: true
+      BaritoneDetection.FakeBlock: true
