@@ -2,6 +2,7 @@ package me.juicyseals;
 
 import me.juicyseals.Commands.Sub.Alerts;
 import me.juicyseals.Interfaces.Check;
+import me.juicyseals.Storage.Staff;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -19,8 +20,10 @@ public class Alert {
         alert.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GRAY + "Yaw: " + p.getLocation().getYaw() + "\nPitch: " + p.getLocation().getPitch() + "\nPing: " + p.getPing() + "\nSeverity: " + check.getSeverity().color + check.getSeverity()).create()));
         for(Player staffp :Bukkit.getOnlinePlayers()) {
             if(!staffp.hasPermission("BaritoneDetection.Alert")) {continue;}
-            if(!main.staff.isAlertsOn(staffp)) {continue;}
-            Bukkit.spigot().broadcast(alert);
+            if(!Staff.staffsAlertsOff.contains(staffp)) {
+                staffp.spigot().sendMessage(alert);
+            }
+
         }
     }
 }

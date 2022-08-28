@@ -5,6 +5,7 @@ import me.juicyseals.Alert;
 import me.juicyseals.BaritoneDetection;
 import me.juicyseals.Interfaces.Check;
 import me.juicyseals.Severity;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,12 +34,13 @@ public class AngleA implements Check, Listener {
         try {
             Player p = e.getPlayer();
             float pitch = p.getLocation().getPitch();
-
             if (pitch >= 25.8 && pitch <= 26.2) {
                 if (baritoneDetection.alertLogs.getFlagAmount(p, this) == 3) {
+                    p.sendMessage("ALERTING");
                     Alert.alert(this, p);
                     baritoneDetection.alertLogs.resetFlags(p, this);
                 } else {
+                    p.sendMessage("NOT ENOUGH");
                     baritoneDetection.alertLogs.addFlag(p, this);
                 }
             }

@@ -1,34 +1,33 @@
 package me.juicyseals.Storage;
 
+import me.juicyseals.Alert;
+import me.juicyseals.BaritoneDetection;
+import me.juicyseals.Database.Database;
 import me.juicyseals.Interfaces.Check;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
 public class AlertLogs {
+    public BaritoneDetection baritoneDetection;
+    public AlertLogs(BaritoneDetection baritoneDetection) {
+        this.baritoneDetection = baritoneDetection;
+    }
     HashMap<Player, HashMap<Check, Integer>> logs = new HashMap<>();
 
     public int getFlagAmount(Player p, Check c) {
-        if (!logs.containsKey(p)) {
-            logs.put(p, new HashMap<>());
-        }
-        if (logs.get(p).containsKey(c)) {
-            return logs.get(p).get(c);
-        } else {
-            logs.get(p).put(c, 0);
-            return 0;
-        }
+       return baritoneDetection.db.getFlagCount(p, c);
     }
 
     public void addFlag(Player p, Check c) {
-        logs.get(p).put(c, logs.get(p).get(c) + 1);
+        baritoneDetection.db.addAlert(c, p);
     }
 
     public void resetFlags(Player p, Check c) {
-        logs.get(p).put(c, 0);
+        baritoneDetection.db.resetFlags(p, c);
     }
 
     public void resetFlags(Player p) {
-        logs.get(p).clear();
+        baritoneDetection.db.resetFlags(p);
     }
 }
