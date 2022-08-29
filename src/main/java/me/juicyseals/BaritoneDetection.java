@@ -2,7 +2,6 @@ package me.juicyseals;
 
 import io.sentry.ITransaction;
 import io.sentry.Sentry;
-import io.sentry.SentryEvent;
 import me.juicyseals.Checks.Angle.AngleA;
 import me.juicyseals.Checks.Angle.AngleB;
 import me.juicyseals.Checks.Angle.AngleC;
@@ -13,7 +12,6 @@ import me.juicyseals.Commands.CommandHandler;
 import me.juicyseals.Commands.Sub.*;
 import me.juicyseals.Database.Database;
 import me.juicyseals.Database.PlayerJoin;
-import me.juicyseals.Storage.AlertLogs;
 import me.juicyseals.Storage.FakeBlocks;
 import me.juicyseals.Storage.Staff;
 import me.juicyseals.Util.Metrics;
@@ -23,7 +21,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class BaritoneDetection extends JavaPlugin {
-    public AlertLogs alertLogs = new AlertLogs(this);
     public FakeBlocks fakeBlocks = new FakeBlocks();
     public CommandHandler commandHandler = new CommandHandler(this);
     public Staff staff = new Staff();

@@ -6,7 +6,6 @@ me\juicyseals\Storage\Staff.class
 me\juicyseals\Commands\Sub\FakeBlockCMD.class
 me\juicyseals\Commands\Sub\Logs.class
 me\juicyseals\Util\Metrics$SingleLineChart.class
-me\juicyseals\Storage\AlertLogs.class
 me\juicyseals\Util\Metrics.class
 me\juicyseals\Checks\Angle\AngleD.class
 me\juicyseals\Commands\Sub\Alerts.class
