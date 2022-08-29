@@ -1,0 +1,7 @@
+#Database connection info
+host: localhost:3306
+username: "username"
+password: "password"
+
+prefix: "&7[&6BD&7] "
+

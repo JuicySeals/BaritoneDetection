@@ -16,6 +16,7 @@ import me.juicyseals.Database.PlayerJoin;
 import me.juicyseals.Storage.AlertLogs;
 import me.juicyseals.Storage.FakeBlocks;
 import me.juicyseals.Storage.Staff;
+import me.juicyseals.Util.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,10 +28,12 @@ public class BaritoneDetection extends JavaPlugin {
     public CommandHandler commandHandler = new CommandHandler(this);
     public Staff staff = new Staff();
     public Database db;
-    public static String prefix = ChatColor.GRAY + "[" + ChatColor.GOLD + "BD" + ChatColor.GRAY + "] ";
+    public Alert alert = new Alert(this);
+    public static String prefix;
     ITransaction transaction = Sentry.startTransaction("onEnable()", "task");
     @Override
     public void onEnable() {
+        this.saveDefaultConfig();
         Sentry.init(options -> {
             options.setDsn("https://5cba7ea6249f476ab46a61c4759d5712@o1380778.ingest.sentry.io/6694318");
             options.setTracesSampleRate(1.0);
@@ -40,7 +43,7 @@ public class BaritoneDetection extends JavaPlugin {
                         return 1.0;
                     });
         });
-        db = new Database();
+        db = new Database(this);
         Bukkit.getLogger().info("Starting v" + getDescription().getVersion() + " of BaritoneDetection");
         getServer().getPluginManager().registerEvents(new AngleA(this), this);
         getServer().getPluginManager().registerEvents(new AngleB(this), this);
@@ -55,7 +58,10 @@ public class BaritoneDetection extends JavaPlugin {
         commandHandler.registerSubCommand(new Logs(this));
         commandHandler.registerSubCommand(new ResetLogs(this));
         commandHandler.registerSubCommand(new Alerts(this));
+        commandHandler.registerSubCommand(new Reload(this));
         commandHandler.registerSubCommand(new Issue());
         commandHandler.registerSubCommand(new Suggest());
+        prefix = ChatColor.translateAlternateColorCodes('&', getConfig().getString("prefix"));
+        Metrics metrics = new Metrics(this, 16294);
     }
 }

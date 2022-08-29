@@ -12,6 +12,7 @@ C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Commands\
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Storage\FakeBlocks.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Commands\CommandHandler.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Alert.java
+C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Util\Metrics.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Commands\Sub\Issue.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Database\Database.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Storage\Staff.java
@@ -20,7 +21,9 @@ C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Interface
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Checks\Misc\FakeBlockA.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Severity.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Checks\Angle\AngleD.java
+C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Commands\Sub\Reload.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Commands\Sub\Alerts.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Database\PlayerJoin.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Commands\Sub\Suggest.java
+C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Util\UUIDFetcher.java
 C:\Users\drizz\Documents\BaritoneDetection\src\main\java\me\juicyseals\Checks\Angle\AngleA.java

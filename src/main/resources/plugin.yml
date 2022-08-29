@@ -2,6 +2,7 @@ name: BaritoneDetection
 main: me.juicyseals.BaritoneDetection
 author: JuicySeals
 version: 1
+api-version: 1.18
 description: A plugin that detects baritone users using multiple methods.
 website: www.juicyseals.me
 commands:
@@ -13,7 +14,25 @@ permissions:
     description: Gives permission to use /bd fake
   BaritoneDetection.Help:
     description: Gives permission to use /bd help
+  BaritoneDetection.Alerts:
+    description: Gives permission to toggle alerts
+  BaritoneDetection.Issue:
+    description: Gives permission to submit issues
+  BaritoneDetection.Suggest:
+    description: Gives permssion to submit suggestions
+  BaritoneDetection.Logs:
+    description: Gives permission to check logs
+  BaritoneDetection.Reload:
+    description: Gives permission to reload config
+  BaritoneDetection.ResetLogs:
+    description: Gives permission to reset a players logs
   BaritoneDetection.Admin:
     children:
       BaritoneDetection.Help: true
       BaritoneDetection.FakeBlock: true
+      BaritoneDetection.Alerts: true
+      BaritoneDetection.Issue: true
+      BaritoneDetection.Sugggest: true
+      BaritoneDetection.Logs: true
+      BaritoneDetection.Reload: true
+      BaritoneDetection.ResetLogs: true

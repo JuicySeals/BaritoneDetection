@@ -35,14 +35,7 @@ public class AngleA implements Check, Listener {
             Player p = e.getPlayer();
             float pitch = p.getLocation().getPitch();
             if (pitch >= 25.8 && pitch <= 26.2) {
-                if (baritoneDetection.alertLogs.getFlagAmount(p, this) == 3) {
-                    p.sendMessage("ALERTING");
                     Alert.alert(this, p);
-                    baritoneDetection.alertLogs.resetFlags(p, this);
-                } else {
-                    p.sendMessage("NOT ENOUGH");
-                    baritoneDetection.alertLogs.addFlag(p, this);
-                }
             }
         }catch (Exception exception) {
             Sentry.captureException(exception);

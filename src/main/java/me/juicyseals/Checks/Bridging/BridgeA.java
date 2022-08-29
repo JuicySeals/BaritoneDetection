@@ -33,12 +33,7 @@ public class BridgeA implements Check, Listener {
             double pitch = e.getPlayer().getLocation().getPitch();
             Player p = e.getPlayer();
             if (pitch > 84.3 && pitch < 84.8) {
-                if (baritoneDetection.alertLogs.getFlagAmount(p, this) == 2) {
-                    Alert.alert(this, p);
-                    baritoneDetection.alertLogs.resetFlags(p, this);
-                } else {
-                    baritoneDetection.alertLogs.addFlag(p, this);
-                }
+                Alert.alert(this, p);
             }
         }catch (Exception exception) {
             Sentry.captureException(exception);

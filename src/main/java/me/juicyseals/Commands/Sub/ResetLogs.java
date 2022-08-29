@@ -3,6 +3,7 @@ package me.juicyseals.Commands.Sub;
 import io.sentry.Sentry;
 import me.juicyseals.BaritoneDetection;
 import me.juicyseals.Interfaces.SubCommand;
+import me.juicyseals.Util.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -19,10 +20,8 @@ public class ResetLogs implements SubCommand {
     public void onCommand(CommandSender cmds, Command cmd, String s, String[] strings) {
         try {
             if(strings.length != 2) {cmds.sendMessage(ChatColor.RED + "Wrong amount of args"); return;}
-            if(Bukkit.getPlayer(strings[1]) == null) {cmds.sendMessage(ChatColor.RED + "Invalid player"); return;}
-            Player p = Bukkit.getPlayer(strings[1]);
-            baritoneDetection.alertLogs.resetFlags(p);
-            p.sendMessage(BaritoneDetection.prefix + p.getDisplayName() + " logs cleared.");
+            baritoneDetection.alertLogs.resetFlags(UUIDFetcher.getUUID(strings[1]));
+            cmds.sendMessage(BaritoneDetection.prefix + ChatColor.GREEN + "Cleared logs of " + strings[1]);
         }catch (Exception e) {
             Sentry.captureException(e);
         }

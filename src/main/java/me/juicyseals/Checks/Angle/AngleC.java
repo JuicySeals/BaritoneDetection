@@ -33,12 +33,7 @@ public class AngleC implements Check, Listener {
             float pitch = e.getPlayer().getLocation().getPitch();
             Player p = e.getPlayer();
             if (pitch >= 86.2 && pitch < 87) {
-                if (baritoneDetection.alertLogs.getFlagAmount(p, this) == 3) {
-                    Alert.alert(this, p);
-                    baritoneDetection.alertLogs.resetFlags(p, this);
-                } else {
-                    baritoneDetection.alertLogs.addFlag(p, this);
-                }
+                Alert.alert(this, p);
             }
         }catch (Exception exception) {
             Sentry.captureException(exception);

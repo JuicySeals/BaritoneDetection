@@ -23,7 +23,7 @@ public class Alert {
             if(!Staff.staffsAlertsOff.contains(staffp)) {
                 staffp.spigot().sendMessage(alert);
             }
-
         }
+        main.db.addAlert(check, p);
     }
 }

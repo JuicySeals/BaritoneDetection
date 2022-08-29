@@ -2,6 +2,7 @@ package me.juicyseals.Commands;
 
 import io.sentry.Sentry;
 import me.juicyseals.BaritoneDetection;
+import me.juicyseals.Commands.Sub.Help;
 import me.juicyseals.Interfaces.SubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class CommandHandler implements CommandExecutor {
     BaritoneDetection baritoneDetection;
-    List<SubCommand> subCommands = new ArrayList<>();
+    ArrayList<SubCommand> subCommands = new ArrayList<>();
 
     public CommandHandler(BaritoneDetection baritoneDetection) {
         this.baritoneDetection = baritoneDetection;
@@ -21,9 +22,8 @@ public class CommandHandler implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender a, Command b, String c, String[] d) {
-        try {
             if (d.length < 1) {
-                subCommands.get(1).onCommand(a, b, c, d);
+                new Help(baritoneDetection).onCommand(a, b, c, d);
                 return true;
             }
             for (SubCommand cmd : subCommands) {
@@ -34,14 +34,9 @@ public class CommandHandler implements CommandExecutor {
                     } else {
                         a.sendMessage(ChatColor.RED + "No permission.");
                     }
-
                 }
             }
             return true;
-        }catch (Exception exception) {
-            Sentry.captureException(exception);
-            return true;
-        }
     }
 
 

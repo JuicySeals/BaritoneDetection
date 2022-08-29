@@ -3,6 +3,7 @@ package me.juicyseals.Database;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.sentry.Sentry;
+import me.juicyseals.BaritoneDetection;
 import me.juicyseals.Commands.Sub.Logs;
 import me.juicyseals.Interfaces.Check;
 import me.juicyseals.Storage.Log;
@@ -17,15 +18,18 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 public class Database {
+    public Connection conn;
     private HikariDataSource db;
-    public Database() {
+
+    public Database(BaritoneDetection baritoneDetection) {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://localhost:3306");
-        config.setUsername("root");
-        config.setPassword("Ss.12001947");
+        config.setJdbcUrl("jdbc:mysql://" + baritoneDetection.getConfig().getString("host"));
+        config.setUsername(baritoneDetection.getConfig().getString("username"));
+        config.setPassword(baritoneDetection.getConfig().getString("password"));
         db = new HikariDataSource(config);
         try {
-            if (db.getConnection().isClosed()) {
+            conn = db.getConnection();
+            if (conn.isClosed()) {
                 Bukkit.getLogger().log(Level.SEVERE, "Could not connect to database!");
             } else {
                 Bukkit.getLogger().info("Connected to database!");
@@ -39,7 +43,6 @@ public class Database {
 
     private void initDatabase() {
         try {
-            Connection conn = db.getConnection();
             conn.createStatement().execute("CREATE DATABASE IF NOT EXISTS BaritoneDetection");
             conn.createStatement().execute("USE BaritoneDetection;");
             conn.createStatement().execute("CREATE TABLE `logs` (`UUID` VARCHAR(50) NOT NULL,`AngleA` INT(50), `AngleB` INT(50), `AngleC` INT(50), `AngleD` INT(50), `BridgeA` INT(50), `FakeBlockA` INT(50))COLLATE='latin1_swedish_ci';");
@@ -53,7 +56,6 @@ public class Database {
         String checkName = c.getCheckName();
         UUID uuid = p.getUniqueId();
         try {
-            Connection conn = db.getConnection();
             conn.createStatement().execute("USE baritonedetection;");
             ResultSet rs = conn.createStatement().executeQuery("SELECT %s FROM logs WHERE UUID = '%s'".formatted(checkName, uuid));
             rs.next();
@@ -67,7 +69,6 @@ public class Database {
 
     public void initPlayer(Player p) {
         try {
-            Connection conn = db.getConnection();
             conn.createStatement().execute("INSERT INTO `baritonedetection`.`logs` (`UUID`, `AngleA`, `AngleB`, `AngleC`, `AngleD`, `BridgeA`, `FakeBlockA`) VALUES ('%s', '0', '0', '0', '0', '0', '0');".formatted(p.getUniqueId()));
         }catch (Exception e) {
             Sentry.captureException(e);
@@ -78,7 +79,6 @@ public class Database {
         String checkName = c.getCheckName();
         UUID uuid = p.getUniqueId();
         try {
-            Connection conn = db.getConnection();
             conn.createStatement().execute("USE baritonedetection;");
             ResultSet rs = conn.createStatement().executeQuery("SELECT %s FROM logs WHERE UUID = '%s'".formatted(checkName, uuid));
             rs.next();
@@ -94,7 +94,6 @@ public class Database {
         String checkName = c.getCheckName();
         UUID uuid = p.getUniqueId();
         try {
-            Connection conn = db.getConnection();
             conn.createStatement().execute("USE baritonedetection;");
             conn.createStatement().execute("UPDATE logs SET %s = 0 WHERE UUID = '%s';".formatted(checkName, uuid));
         } catch (Exception e) {
@@ -103,12 +102,10 @@ public class Database {
         }
     }
 
-    public void resetFlags(Player p) {
-        UUID uuid = p.getUniqueId();
+    public void resetFlags(UUID UUID) {
         try {
-            Connection conn = db.getConnection();
             conn.createStatement().execute("USE baritonedetection;");
-            conn.createStatement().execute("UPDATE logs SET AngleA = 0, AngleB = 0, AngleC = 0, AngleD = 0, BridgeA = 0, FakeBlockA = 0 WHERE UUID = '%s';".formatted(uuid));
+            conn.createStatement().execute("UPDATE logs SET AngleA = 0, AngleB = 0, AngleC = 0, AngleD = 0, BridgeA = 0, FakeBlockA = 0 WHERE UUID = '%s';".formatted(UUID));
         } catch (Exception e) {
             Sentry.captureException(e);
             e.printStackTrace();
@@ -117,7 +114,6 @@ public class Database {
 
     public Log getLogs(String uuid) {
         try {
-            Connection conn = db.getConnection();
             conn.createStatement().execute("USE baritonedetection;");
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM logs WHERE UUID = '%s'".formatted(uuid));
             rs.next();
@@ -127,5 +123,9 @@ public class Database {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void executeStatement(String sql) {
+
     }
 }

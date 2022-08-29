@@ -8,6 +8,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class Logs implements SubCommand {
@@ -22,8 +25,13 @@ public class Logs implements SubCommand {
         Log log = baritoneDetection.db.getLogs(Bukkit.getOfflinePlayer(strings[1]).getUniqueId().toString());
         cmds.sendMessage(ChatColor.GRAY + "Logs for " + ChatColor.GOLD + strings[1]);
         cmds.sendMessage(" ");
+        List<String> checkName = new ArrayList<>();
         for(Map.Entry<String, Integer> set: log.ToHashMap().entrySet()) {
-            cmds.sendMessage(ChatColor.GRAY + "- " + ChatColor.GOLD + set.getKey() + " (" + ChatColor.YELLOW + set.getValue() + ChatColor.GOLD + ")");
+            checkName.add(set.getKey());
+        }
+        Collections.sort(checkName);
+        for(String check : checkName) {
+            cmds.sendMessage(ChatColor.GRAY + "- " + ChatColor.GOLD + check + " (" + ChatColor.YELLOW + log.ToHashMap().get(check) + ChatColor.GOLD + ")");
         }
     }
 
